@@ -338,26 +338,35 @@
 
     .tiers-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      border: 1px solid var(--border);
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
     }
 
     .tier-card {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid var(--border);
+      padding: 2.5rem 2.5rem 2rem;
       position: relative;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      overflow: hidden;
     }
-    .tier-card:last-child { border-right: none; }
+
+    .tier-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      opacity: 0.03;
+    }
+    .tier-card:first-child::after { background: #3b6ed4; }
+    .tier-card:last-child::after  { background: #9a5fbf; }
 
     .tier-accent {
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 2px;
+      height: 1px;
     }
-    .tier-accent.t1 { background: #3b6ed4; }
-    .tier-accent.t2 { background: #9a5fbf; }
-    .tier-accent.t3 { background: var(--gold); }
+    .tier-accent.t1 { background: linear-gradient(90deg, #3b6ed4, transparent); }
+    .tier-accent.t2 { background: linear-gradient(90deg, #9a5fbf, transparent); }
 
     .tier-badge {
       font-family: var(--font-head);
@@ -365,19 +374,18 @@
       font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
       display: inline-block;
       padding: 0.3rem 0.65rem;
       border: 1px solid;
     }
-    .tier-badge.t1 { color: #3b6ed4; border-color: rgba(59,110,212,0.35); }
-    .tier-badge.t2 { color: #9a5fbf; border-color: rgba(154,95,191,0.35); }
-    .tier-badge.t3 { color: var(--gold); border-color: var(--gold-line); }
+    .tier-badge.t1 { color: #3b6ed4; border-color: rgba(59,110,212,0.35); background: rgba(59,110,212,0.06); }
+    .tier-badge.t2 { color: #9a5fbf; border-color: rgba(154,95,191,0.35); background: rgba(154,95,191,0.06); }
 
     .tier-card h3 {
       font-family: var(--font-head);
       font-weight: 700;
-      font-size: 1.6rem;
+      font-size: 2rem;
       text-transform: uppercase;
       letter-spacing: 0.02em;
       color: var(--text);
@@ -387,81 +395,120 @@
     .tier-subtitle {
       font-size: 0.82rem;
       color: var(--text-soft);
-      margin-bottom: 1.75rem;
+      margin-bottom: 2rem;
       line-height: 1.6;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
     }
 
     .tier-items {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
     }
 
     .tier-items li {
       display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.82rem;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      line-height: 1.5;
+      line-height: 1.4;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
     }
+    .tier-items li:nth-last-child(1),
+    .tier-items li:nth-last-child(2) { border-bottom: none; }
 
     .tier-items li::before {
       content: '';
-      width: 4px; height: 4px;
-      background: var(--text-muted);
+      width: 3px; height: 3px;
       border-radius: 50%;
       flex-shrink: 0;
-      margin-top: 0.55em;
     }
+    .tier-card:first-child .tier-items li::before { background: #3b6ed4; }
+    .tier-card:last-child  .tier-items li::before { background: #9a5fbf; }
 
-    /* ─── CATEGORIES ─── */
+    /* ─── DOMAIN CARDS ─── */
     .categories {
       border-bottom: 1px solid var(--border);
       padding-bottom: 5rem;
     }
 
-    .categories-grid {
+    .domain-cards-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 0;
       border: 1px solid var(--border);
     }
 
-    .cat-cell {
-      padding: 1.25rem 1rem;
+    .domain-card {
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+    }
+    .domain-card:nth-child(3n) { border-right: none; }
+    .domain-card:nth-last-child(-n+3) { border-bottom: none; }
+
+    .domain-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem 0.9rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .cat-cell:nth-child(6n) { border-right: none; }
-    .cat-cell:nth-last-child(-n+5) { border-bottom: none; }
-
-    .cat-tier-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .cat-tier-dot.t1 { background: #3b6ed4; }
-    .cat-tier-dot.t2 { background: #9a5fbf; }
-    .cat-tier-dot.t3 { background: var(--gold); }
-
-    .cat-name {
-      font-size: 0.78rem;
-      font-weight: 500;
+    .domain-code {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--text);
-      line-height: 1.3;
     }
 
-    .cat-tier-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
+    .domain-full-name {
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--text-muted);
+    }
+
+    .domain-tiers {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .domain-tier-row {
+      padding: 0.9rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .domain-tier-row:last-child { border-bottom: none; }
+
+    .domain-tier-badge {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.5rem;
+      display: inline-block;
+      margin-bottom: 0.2rem;
+      width: fit-content;
+    }
+    .domain-tier-badge.t1 { color: #3b6ed4; border: 1px solid rgba(59,110,212,0.3); }
+    .domain-tier-badge.t2 { color: #9a5fbf; border: 1px solid rgba(154,95,191,0.3); }
+
+    .domain-tier-text {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      line-height: 1.6;
     }
 
     /* ─── AUDIENCE ─── */
@@ -659,7 +706,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
-      align-items: start;
+      align-items: stretch;
     }
 
     .opensource-text p {
@@ -674,11 +721,16 @@
       flex-direction: column;
       gap: 0;
       border: 1px solid var(--border);
+      justify-content: stretch;
     }
 
     .pillar {
       padding: 1.5rem 1.75rem;
       border-bottom: 1px solid var(--border);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .pillar:last-child { border-bottom: none; }
 
@@ -820,10 +872,10 @@
       <p class="hero-label">Digital Asset Risk & Compliance Standard</p>
       <h1>The Trust<br>Standard for<br><span>Digital Assets</span></h1>
       <div class="hero-body">
-        <p class="hero-desc">DARC certifies the security, operational integrity, and control effectiveness of digital asset systems across the full stack—including DeFi protocols, L1s, L2s, wallets, custodians, and centralized exchanges. It covers key management, infrastructure, governance, and incident response: the systems and processes that determine real-world reliability beyond code.</p>
+        <p class="hero-desc">DARC is a standard for evaluating the operational integrity of digital asset systems. It covers key management, infrastructure, governance, and incident response: The systems that determine real-world reliability beyond code.</p>
         <div class="hero-cta-group">
           <button class="btn btn-gold" onclick="document.getElementById('apply-modal').style.display='flex'">Apply for Certification</button>
-          <a href="#standard" class="btn btn-outline">View the Standard</a>
+          <a href="#standard" class="btn btn-outline">Learn More</a>
         </div>
       </div>
     </div>
@@ -833,16 +885,16 @@
   <section class="stats">
     <div class="stats-grid">
       <div class="stat-item">
-        <div class="stat-n">17</div>
-        <div class="stat-label">Audit Domains</div>
+        <div class="stat-n">12</div>
+        <div class="stat-label">Audit Domains Across the Stack</div>
       </div>
       <div class="stat-item">
-        <div class="stat-n">3</div>
+        <div class="stat-n">2</div>
         <div class="stat-label">Certification Tiers</div>
       </div>
       <div class="stat-item">
         <div class="stat-n">240+</div>
-        <div class="stat-label">Control Requirements</div>
+        <div class="stat-label">Control Requirements Defined</div>
       </div>
     </div>
   </section>
@@ -852,23 +904,24 @@
     <div class="container">
       <div class="section-header">
         <p class="section-tag">The Problem</p>
-        <h2>Capital Flows Without a Standard</h2>
+        <h2>Operational Risk Lacks a Standard</h2>
       </div>
       <div class="problem-grid">
         <div class="problem-card">
           <p class="problem-n">01 —</p>
           <h3>No Common Reference</h3>
-          <p>TradFi institutions allocating to digital assets have no equivalent of SOC 2 or ISO 27001 to evaluate operational risk. Every due diligence engagement starts from zero.</p>
+          <p>There is no shared standard for evaluating the operational risk of digital asset ecosystems. Institutional due diligence lacks a common baseline, such as an equivalent of SOC2 or ISO 27001. Each evaluation is bespoke, inconsistent, and difficult to compare across entities.</p>
         </div>
         <div class="problem-card">
           <p class="problem-n">02 —</p>
-          <h3>Code Audits Miss the Stack</h3>
-          <p>Smart contract audits do not assess multisig controls, key management procedures, infrastructure security, incident response readiness, or the human and operational layer.</p>
+          <h3>Existing Audits Are Incomplete</h3>
+          <p>Smart contract audits assess code, not operations. They do not evaluate key management, infrastructure security, governance processes, or incident response, which are the systems that determine how protocols behave in practice.</p>
         </div>
         <div class="problem-card">
           <p class="problem-n">03 —</p>
           <h3>No Public Accountability</h3>
-          <p>Without a public registry of certified entities, there is no mechanism for the market to distinguish operationally sound protocols from those that represent concentrated risk.</p>
+          <p>There is no public mechanism to verify operational integrity.
+Without a registry of certified entities, the market cannot distinguish between systems that are operationally sound and those that represent concentrated risk.</p>
         </div>
       </div>
     </div>
@@ -879,7 +932,7 @@
     <div class="container">
       <div class="section-header">
         <p class="section-tag">Certification Framework</p>
-        <h2>Three Tiers of Certification</h2>
+        <h2>Two Tiers of Certification</h2>
       </div>
       <div class="tiers-grid">
 
@@ -887,14 +940,20 @@
           <div class="tier-accent t1"></div>
           <div class="tier-badge t1">DARC-1 · Foundational</div>
           <h3>Core Controls</h3>
-          <p class="tier-subtitle">Establishes the minimum operational baseline. Required as a prerequisite for DARC-2.</p>
+          <p class="tier-subtitle">Establishes the minimum operational baseline across all 12 domains. Required as a prerequisite for DARC-2.</p>
           <ul class="tier-items">
-            <li>Multisig and key management procedures</li>
-            <li>Infrastructure access controls and hardening</li>
-            <li>On-chain governance configuration</li>
-            <li>Incident response plan and escalation paths</li>
-            <li>Admin key lifecycle management</li>
-            <li>Basic operational security (OpSec) standards</li>
+            <li>Security Ownership & Policy</li>
+            <li>Key Protection & Backup</li>
+            <li>Wallet Signing Controls</li>
+            <li>Account & Device Security</li>
+            <li>Secure Code Practices</li>
+            <li>Audit Coverage Verification</li>
+            <li>Incident Response Basics</li>
+            <li>Treasury Controls</li>
+            <li>Wallet Monitoring</li>
+            <li>Dependency Management</li>
+            <li>Domain & DNS Security</li>
+            <li>Physical Device Security</li>
           </ul>
         </div>
 
@@ -902,29 +961,20 @@
           <div class="tier-accent t2"></div>
           <div class="tier-badge t2">DARC-2 · Advanced</div>
           <h3>Verified Integrity</h3>
-          <p class="tier-subtitle">Demonstrates mature operational controls and third-party verification readiness. Requires DARC-1.</p>
+          <p class="tier-subtitle">Builds on DARC-1 with formal processes, deeper controls, and operational maturity across every domain. Requires DARC-1.</p>
           <ul class="tier-items">
-            <li>Active bug bounty program (Immunefi or equivalent)</li>
-            <li>Dependency and supply chain risk management</li>
-            <li>Frontend security and DNS hygiene</li>
-            <li>Financial transparency and reserve reporting</li>
-            <li>Business continuity planning and tested recovery</li>
-            <li>Third-party risk management for integrations</li>
-          </ul>
-        </div>
-
-        <div class="tier-card">
-          <div class="tier-accent t3"></div>
-          <div class="tier-badge t3">DARC-3 · Institutional</div>
-          <h3>Full Assurance</h3>
-          <p class="tier-subtitle">The highest level of certification. Designed for entities seeking regulatory recognition and institutional capital. Requires DARC-2.</p>
-          <ul class="tier-items">
-            <li>DORA-aligned digital operational resilience testing</li>
-            <li>Regulatory compliance readiness (MiCA, Travel Rule)</li>
-            <li>Independent board and governance oversight</li>
-            <li>Continuous monitoring and real-time alerting</li>
-            <li>Annual re-certification by accredited third-party auditor</li>
-            <li>Full audit trail and evidence package</li>
+            <li>Risk Management & Oversight</li>
+            <li>Key Lifecycle Management</li>
+            <li>Multisig Operational Maturity</li>
+            <li>Access Management</li>
+            <li>Secure Pipeline & Infrastructure</li>
+            <li>Contract Deployment Governance</li>
+            <li>Formal Incident Response</li>
+            <li>Custody Architecture & Controls</li>
+            <li>Proactive Threat Detection</li>
+            <li>Supply Chain Verification</li>
+            <li>DNS & Frontend Hardening</li>
+            <li>Physical Access Controls</li>
           </ul>
         </div>
 
@@ -932,33 +982,231 @@
     </div>
   </section>
 
-  <!-- CATEGORIES -->
-  <section class="categories">
+  <!-- DOMAIN CARDS -->
+  <section class="categories" id="domains">
     <div class="container">
       <div class="section-header">
         <p class="section-tag">Audit Domains</p>
-        <h2>17 Categories Across the Stack</h2>
+        <h2>12 Domains Across the Stack</h2>
       </div>
-      <div class="categories-grid">
-        <div class="cat-cell"><div class="cat-tier-dot t1"></div><div class="cat-name">Key Management</div><div class="cat-tier-label">DARC-1</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t1"></div><div class="cat-name">Multisig Controls</div><div class="cat-tier-label">DARC-1</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t1"></div><div class="cat-name">Infrastructure Security</div><div class="cat-tier-label">DARC-1</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t1"></div><div class="cat-name">Governance Configuration</div><div class="cat-tier-label">DARC-1</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t1"></div><div class="cat-name">Incident Response</div><div class="cat-tier-label">DARC-1</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t1"></div><div class="cat-name">Operational Security</div><div class="cat-tier-label">DARC-1</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t2"></div><div class="cat-name">Bug Bounty Program</div><div class="cat-tier-label">DARC-2</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t2"></div><div class="cat-name">Dependency Risk</div><div class="cat-tier-label">DARC-2</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t2"></div><div class="cat-name">Frontend Security</div><div class="cat-tier-label">DARC-2</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t2"></div><div class="cat-name">Financial Reporting</div><div class="cat-tier-label">DARC-2</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t2"></div><div class="cat-name">Business Continuity</div><div class="cat-tier-label">DARC-2</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t2"></div><div class="cat-name">Third-party Risk</div><div class="cat-tier-label">DARC-2</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t3"></div><div class="cat-name">Resilience Testing</div><div class="cat-tier-label">DARC-3</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t3"></div><div class="cat-name">Regulatory Readiness</div><div class="cat-tier-label">DARC-3</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t3"></div><div class="cat-name">Oversight & Independence</div><div class="cat-tier-label">DARC-3</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t3"></div><div class="cat-name">Continuous Monitoring</div><div class="cat-tier-label">DARC-3</div></div>
-        <div class="cat-cell"><div class="cat-tier-dot t3"></div><div class="cat-name">Audit Evidence Package</div><div class="cat-tier-label">DARC-3</div></div>
-        <!-- Spacer cell -->
-        <div class="cat-cell" style="border-right:none; background: transparent;"></div>
+      <div class="domain-cards-grid">
+
+        <!-- GV -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">GV</span>
+            <span class="domain-full-name">Governance &amp; Compliance</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Named security owner, plain-language policy, asset inventory, secure onboarding &amp; offboarding, NDAs, social engineering awareness.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Risk register, data classification, security metrics, regulatory awareness, threat intelligence, domain-specific ownership, change management.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- KM -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">KM</span>
+            <span class="domain-full-name">Key Management</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Keys encrypted at rest, tested backup recovery, 2FA on all key systems, no two keys on same device, written Key Compromise Protocol.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Formal key lifecycle docs, geographic backup distribution, rotation schedules, tamper-evident storage, background checks, spend verification.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MS -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">MS</span>
+            <span class="domain-full-name">Multisig Governance</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Multisig on all fund wallets, hardware wallets required, independent signer verification per transaction, no single-entity threshold control.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Risk classification, signer training &amp; assessment, transaction simulation, emergency playbooks, monitoring, 12-hour quorum reachability.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AC -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">AC</span>
+            <span class="domain-full-name">Access Control</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">MFA everywhere (no SMS), password manager, full-disk encryption, auto-lock, 24-hour offboarding, no shared credentials.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Hardware security keys for critical accounts, least privilege, quarterly access reviews, phishing simulations, malware protection, MDM.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SD -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">SD</span>
+            <span class="domain-full-name">Secure Development</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Branch protection, signed commits, automated secret scanning, dependency pinning, no production credentials in dev environments.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Multi-party code review, SAST in CI/CD, isolated dev environments, dedicated secrets management, staging before production.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SC -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">SC</span>
+            <span class="domain-full-name">Smart Contract Ops</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">One external audit before mainnet, all critical findings resolved, verified deployed bytecode matches audited source, privileged functions documented.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Two+ audits for core contracts, timelocks on privileged ops, pause mechanism, bug bounty, re-audit triggers, remediation tracking.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- IM -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">IM</span>
+            <span class="domain-full-name">Incident Management</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Named incident owner, emergency contact list, written response plan (contain, scope, notify), incident channel known to all.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">IR team with defined roles, per-scenario playbooks, 24/7 monitoring with paging, tamper-evident logs, post-incident reviews.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TM -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">TM</span>
+            <span class="domain-full-name">Treasury Management</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Multisig treasury wallets, company funds segregated from user funds, test transactions, basic spend approval policies.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Custody model documented, risk classification per wallet, fund allocation limits, video-call verification for large transfers, monitoring.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CM -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">CM</span>
+            <span class="domain-full-name">On-Chain Monitoring</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Monitor all treasury/multisig wallets, alerts on large transfers &amp; signer changes, named alert reviewer with defined cadence.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Smart contract monitoring, credential leak monitoring, DeFi attack pattern detection, severity-based escalation, on-call schedule.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SY -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">SY</span>
+            <span class="domain-full-name">Supply Chain Security</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Inventory of critical dependencies, official sources only, version pinning with lockfiles, automated vulnerability scanning in CI/CD.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Vendor risk assessments, oracle architecture documented, RPC redundancy (2+ providers), SBOM, frontend build integrity verification.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FD -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">FD</span>
+            <span class="domain-full-name">Frontend &amp; DNS Security</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Domain inventory, MFA on all registrars, auto-renewal, SPF/DKIM/DMARC configured, TLS certificate expiration tracking.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">DNSSEC, CAA records, registry locks, CT log monitoring, CSP headers, SRI for externally-loaded scripts on signing pages.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PS -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-code">PS</span>
+            <span class="domain-full-name">Physical Security</span>
+          </div>
+          <div class="domain-tiers">
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t1">DARC-1</span>
+              <p class="domain-tier-text">Hardware wallets in locked storage, clear desk policy, visitor policy for signing areas, verified hardware supply chain.</p>
+            </div>
+            <div class="domain-tier-row">
+              <span class="domain-tier-badge t2">DARC-2</span>
+              <p class="domain-tier-text">Physical access control with logging, cameras in secure areas, environmental protections, designated key ceremony areas.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -985,7 +1233,7 @@
         </div>
         <div class="audience-card">
           <h4>Regulators</h4>
-          <p>DARC-3 is designed to align with DORA and MiCA, giving supervisory authorities a recognised private-sector standard to reference in licensing and supervisory frameworks.</p>
+          <p>DARC is designed with regulatory alignment in mind. The framework is structured to support recognition within formal licensing and supervisory processes, and to serve as a credible reference standard as regulatory expectations for digital asset operations continue to develop.</p>
         </div>
       </div>
     </div>
@@ -996,13 +1244,13 @@
     <div class="container">
       <div class="section-header">
         <p class="section-tag">Public Registry</p>
-        <h2>Verifiable, Real-Time</h2>
+        <h2>A Public Record of Operational Trust</h2>
       </div>
       <div class="registry-inner">
         <div>
-          <p class="registry-desc">Every certified entity is listed in the DARC Public Registry — a machine-readable, continuously updated database of certification status, tier level, audit date, and expiry. Certification badges are cryptographically signed and verifiable on-chain.</p>
-          <p class="registry-desc">The registry enables institutional investors, aggregators, and risk platforms to integrate DARC status directly into their due diligence workflows.</p>
-          <a href="#apply" class="btn btn-outline" style="margin-top:0.5rem">View Registry</a>
+          <p class="registry-desc">The DARC Public Registry maintains a record of all certified entities. Certification status, tier, audit history, and expiry are publicly available and verifiable on-chain.</p>
+          <p class="registry-desc">The registry provides a standardized reference that can be integrated directly into institutional due diligence, risk systems, and data platforms.</p>
+          <a href="#apply" class="btn btn-outline" style="margin-top:0.5rem">Access the Registry</a>
         </div>
         <div>
           <table class="registry-table">
@@ -1051,27 +1299,24 @@
     <div class="container">
       <div class="section-header">
         <p class="section-tag">Open Standard</p>
-        <h2>Free to Use. Built for the Industry.</h2>
+        <h2>Public by Design</h2>
       </div>
       <div class="opensource-inner">
         <div class="opensource-text">
-          <p>The DARC methodology, control framework, and audit criteria are fully open source and available to anyone at no cost. We believe that operational trust standards for digital assets should be a public good — not a proprietary product.</p>
-          <p>Any organisation can read the standard, self-assess against it, or build tooling on top of it. Certification by an accredited auditor is optional, and is intended for entities that want independent, verifiable attestation.</p>
-          <a href="https://github.com" target="_blank" class="btn btn-outline" style="margin-top:1rem; display:inline-block;">View on GitHub</a>
+          <p>The DARC standard, control framework, and audit criteria are publicly available at no cost. Organization may review the standard, self-assess against it, or build on top of it.</p>
+          <p>Certification is optional and is intended for entities requiring independent, verifiable attestation of their operational controls.</p>
+          <a href="https://github.com" target="_blank" class="btn btn-outline" style="margin-top:1rem; display:inline-block;">View the Standard</a>
         </div>
         <div class="opensource-pillars">
           <div class="pillar">
             <div class="pillar-label">Open Methodology</div>
-            <p>The full control framework, audit procedures, and scoring criteria are published publicly under a Creative Commons licence.</p>
+            <p>The full control framework, audit procedures, and evaluation criteria are published under a Creative Commons license.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-label">No Licensing Fees</div>
-            <p>There is no cost to read, implement, or reference DARC. Certification fees cover auditor time only — DARC itself charges nothing.</p>
+            <div class="pillar-label">No Licensing Requirements</div>
+            <p>There is no cost to access or implement the standard. Certification fees apply only to audit services.</p>
           </div>
-          <div class="pillar">
-            <div class="pillar-label">Community Governed</div>
-            <p>Updates to the standard are proposed publicly, reviewed by the independent standards board, and ratified through an open comment process.</p>
-          </div>
+
         </div>
       </div>
     </div>
