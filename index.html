@@ -107,6 +107,8 @@
       text-decoration: none;
       padding: 0.45rem 1.1rem;
       transition: opacity 0.15s;
+      border: none;
+      cursor: pointer;
     }
     .nav-cta:hover { opacity: 0.85; }
 
@@ -848,6 +850,210 @@
       margin-top: 1.5rem;
       width: 100%;
     }
+    /* ─── HAMBURGER ─── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 101;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      transition: all 0.2s;
+    }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0; bottom: 0;
+      z-index: 99;
+      background: rgba(8,9,15,0.97);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a, .mobile-menu button {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu .mobile-cta {
+      font-size: 1rem;
+      background: var(--gold);
+      color: #08090f;
+      padding: 0.75rem 2rem;
+      margin-top: 1rem;
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 1.25rem;
+      }
+      .nav-hamburger { display: flex; }
+      .nav-center { display: none !important; }
+
+      .container {
+        padding: 0 1.25rem;
+      }
+
+      .hero-inner {
+        padding: 0 1.25rem;
+      }
+
+      .hero {
+        padding-bottom: 4rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.8rem, 10vw, 4rem);
+        margin-bottom: 2rem;
+      }
+
+      .hero-body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-cta-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        border-left: none;
+      }
+
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1.5rem 1.25rem;
+      }
+
+      .section-header {
+        padding: 3rem 0 2rem;
+      }
+
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-card {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .problem-card:last-child { border-bottom: none; }
+
+      .tiers-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .tier-items {
+        grid-template-columns: 1fr;
+      }
+      .tier-items li:nth-last-child(1),
+      .tier-items li:nth-last-child(2) { border-bottom: 1px solid var(--border); }
+      .tier-items li:last-child { border-bottom: none; }
+
+      .domain-cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .domain-card {
+        border-right: none;
+      }
+      .domain-card:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
+      .domain-card:last-child { border-bottom: none; }
+
+      .audience-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .audience-card {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .audience-card:nth-child(odd) { border-right: 1px solid var(--border); }
+      .audience-card:nth-last-child(-n+2) { border-bottom: none; }
+
+      .registry-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .opensource-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .cta-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .cta-actions {
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 1.25rem;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .modal {
+        padding: 1.75rem 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .audience-grid {
+        grid-template-columns: 1fr;
+      }
+      .audience-card:nth-child(odd) { border-right: none; }
+      .audience-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .audience-card:last-child { border-bottom: none; }
+
+      .hero-cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -858,13 +1064,18 @@
       <span class="nav-logo-mark">DA</span>
       DARC
     </a>
-    <ul class="nav-links">
-      <li><a href="#standard">The Standard</a></li>
-      <li><a href="#tiers">Certification</a></li>
-      <li><a href="#registry">Registry</a></li>
-      <li><a href="#auditors">Auditors</a></li>
-    </ul>
-    <button class="nav-cta" style="background:none;border:none;cursor:pointer;" onclick="document.getElementById('apply-modal').style.display='flex'">Apply for Certification</button>
+    <div class="nav-center" style="display:flex; align-items:center; gap:2.5rem; position:absolute; left:50%; transform:translateX(-50%);">
+      <ul class="nav-links" style="display:flex; gap:2.5rem; list-style:none; margin:0; padding:0;">
+        <li><a href="#opensource">The Standard</a></li>
+        <li><a href="#tiers">Certification</a></li>
+        <li><a href="#domains">Coverage</a></li>
+        <li style="display:none;"><a href="#registry">Registry</a></li>
+      </ul>
+      <button class="nav-cta" onclick="document.getElementById('apply-modal').style.display='flex'">Certify</button>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -923,6 +1134,33 @@
           <h3>No Public Accountability</h3>
           <p>There is no public mechanism to verify operational integrity.
 Without a registry of certified entities, the market cannot distinguish between systems that are operationally sound and those that represent concentrated risk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN SOURCE -->
+  <section class="opensource" id="opensource">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Open Standard</p>
+        <h2>Public by Design</h2>
+      </div>
+      <div class="opensource-inner">
+        <div class="opensource-text">
+          <p>The DARC standard, control framework, and audit criteria are publicly available at no cost. Organization may review the standard, self-assess against it, or build on top of it.</p>
+          <p>Certification is optional and is intended for entities requiring independent, verifiable attestation of their operational controls.</p>
+          <a href="https://github.com" target="_blank" class="btn btn-outline" style="margin-top:1rem; display:inline-block;">View the Standard</a>
+        </div>
+        <div class="opensource-pillars">
+          <div class="pillar">
+            <div class="pillar-label">Open Methodology</div>
+            <p>The full control framework, audit procedures, and evaluation criteria are published under a Creative Commons license.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-label">No Licensing Requirements</div>
+            <p>There is no cost to access or implement the standard. Certification fees apply only to audit services.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1221,8 +1459,8 @@ Without a registry of certified entities, the market cannot distinguish between 
       </div>
       <div class="audience-grid">
         <div class="audience-card">
-          <h4>TradFi Institutions</h4>
-          <p>Asset managers, banks, and family offices allocating to digital assets need a standardised operational risk signal. DARC provides the due diligence shorthand that reduces friction and accelerates capital deployment.</p>
+          <h4>Institutions</h4>
+          <p>Asset managers, banks, and family offices need a standardised operational risk signal. DARC provides the due diligence shorthand that reduces friction and accelerates capital deployment.</p>
         </div>
         <div class="audience-card">
           <h4>Crypto-Native Investors</h4>
@@ -1234,14 +1472,14 @@ Without a registry of certified entities, the market cannot distinguish between 
         </div>
         <div class="audience-card">
           <h4>Regulators</h4>
-          <p>DARC is designed with regulatory alignment in mind. The framework is structured to support recognition within formal licensing and supervisory processes, and to serve as a credible reference standard as regulatory expectations for digital asset operations continue to develop.</p>
+          <p>DARC is designed with regulatory alignment in mind. The framework is structured to support recognition within formal licensing and supervisory processes.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- REGISTRY -->
-  <section class="registry" id="registry">
+  <section class="registry" id="registry" style="display:none;">
     <div class="container">
       <div class="section-header">
         <p class="section-tag">Public Registry</p>
@@ -1295,34 +1533,6 @@ Without a registry of certified entities, the market cannot distinguish between 
     </div>
   </section>
 
-  <!-- OPEN SOURCE -->
-  <section class="opensource">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-tag">Open Standard</p>
-        <h2>Public by Design</h2>
-      </div>
-      <div class="opensource-inner">
-        <div class="opensource-text">
-          <p>The DARC standard, control framework, and audit criteria are publicly available at no cost. Organization may review the standard, self-assess against it, or build on top of it.</p>
-          <p>Certification is optional and is intended for entities requiring independent, verifiable attestation of their operational controls.</p>
-          <a href="https://github.com" target="_blank" class="btn btn-outline" style="margin-top:1rem; display:inline-block;">View the Standard</a>
-        </div>
-        <div class="opensource-pillars">
-          <div class="pillar">
-            <div class="pillar-label">Open Methodology</div>
-            <p>The full control framework, audit procedures, and evaluation criteria are published under a Creative Commons license.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-label">No Licensing Requirements</div>
-            <p>There is no cost to access or implement the standard. Certification fees apply only to audit services.</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA -->
   <section class="cta-section" id="apply">
     <div class="container">
@@ -1341,16 +1551,18 @@ Without a registry of certified entities, the market cannot distinguish between 
     <div class="container">
       <div class="footer-inner">
         <div class="footer-logo">DARC — Digital Asset Risk & Compliance Standard</div>
-        <ul class="footer-links">
-          <li><a href="#">Standard</a></li>
-          <li><a href="#">Registry</a></li>
-          <li><a href="#">Auditors</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <p class="footer-copy">© 2025 Wonderland. All rights reserved.</p>
+        <p class="footer-copy">© 2026 Wonderland. All rights reserved.</p>
       </div>
     </div>
   </footer>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#opensource" onclick="document.getElementById('mobile-menu').classList.remove('open')">The Standard</a>
+    <a href="#tiers" onclick="document.getElementById('mobile-menu').classList.remove('open')">Certification</a>
+    <a href="#domains" onclick="document.getElementById('mobile-menu').classList.remove('open')">Coverage</a>
+    <button class="mobile-cta" onclick="document.getElementById('mobile-menu').classList.remove('open'); document.getElementById('apply-modal').style.display='flex'">Certify</button>
+  </div>
 
   <!-- APPLICATION MODAL -->
   <div class="modal-overlay" id="apply-modal" onclick="if(event.target===this)this.style.display='none'">
@@ -1358,18 +1570,18 @@ Without a registry of certified entities, the market cannot distinguish between 
       <button class="modal-close" onclick="document.getElementById('apply-modal').style.display='none'">✕</button>
       <h3>Apply for Certification</h3>
       <p class="modal-sub">Complete the form below and we'll be in touch to begin your DARC assessment.</p>
-      <form action="mailto:darc@darc.xyz" method="post" enctype="text/plain">
+      <form action="mailto:hello@darcstandard.org" method="post" enctype="text/plain">
         <div class="form-row">
           <label for="f-name">Contact Name</label>
-          <input type="text" id="f-name" name="Name" placeholder="Jane Smith" required />
+          <input type="text" id="f-name" name="Name" placeholder="John Doe" required />
         </div>
         <div class="form-row">
           <label for="f-org">Organisation</label>
-          <input type="text" id="f-org" name="Organisation" placeholder="Protocol / Company name" required />
+          <input type="text" id="f-org" name="Organisation" placeholder="Company Name" required />
         </div>
         <div class="form-row">
           <label for="f-email">Email Address</label>
-          <input type="email" id="f-email" name="Email" placeholder="jane@yourprotocol.xyz" required />
+          <input type="email" id="f-email" name="Email" placeholder="john@doe.com" required />
         </div>
         <div class="form-row">
           <label for="f-tier">Certification Tier</label>
@@ -1379,18 +1591,6 @@ Without a registry of certified entities, the market cannot distinguish between 
             <option value="DARC-2">DARC-2 — Advanced</option>
             <option value="DARC-3">DARC-3 — Institutional</option>
             <option value="Unsure">Not sure yet</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label for="f-type">Entity Type</label>
-          <select id="f-type" name="Entity Type">
-            <option value="" disabled selected>Select entity type</option>
-            <option>DeFi Protocol</option>
-            <option>L1 / L2 Chain</option>
-            <option>Wallet</option>
-            <option>Custodian</option>
-            <option>Centralised Exchange</option>
-            <option>Other</option>
           </select>
         </div>
         <div class="form-row">
