@@ -1570,7 +1570,7 @@ Without a registry of certified entities, the market cannot distinguish between 
       <button class="modal-close" onclick="document.getElementById('apply-modal').style.display='none'">✕</button>
       <h3>Apply for Certification</h3>
       <p class="modal-sub">Complete the form below and we'll be in touch to begin your DARC assessment.</p>
-      <form action="mailto:hello@darcstandard.org" method="post" enctype="text/plain">
+      <form id="apply-form" onsubmit="submitForm(event)">
         <div class="form-row">
           <label for="f-name">Contact Name</label>
           <input type="text" id="f-name" name="Name" placeholder="John Doe" required />
@@ -1589,7 +1589,6 @@ Without a registry of certified entities, the market cannot distinguish between 
             <option value="" disabled selected>Select target tier</option>
             <option value="DARC-1">DARC-1 — Foundational</option>
             <option value="DARC-2">DARC-2 — Advanced</option>
-            <option value="DARC-3">DARC-3 — Institutional</option>
             <option value="Unsure">Not sure yet</option>
           </select>
         </div>
@@ -1597,8 +1596,49 @@ Without a registry of certified entities, the market cannot distinguish between 
           <label for="f-notes">Anything else we should know?</label>
           <textarea id="f-notes" name="Notes" placeholder="Optional"></textarea>
         </div>
-        <button type="submit" class="btn btn-gold form-submit">Submit Application</button>
+        <button type="submit" class="btn btn-gold form-submit" id="form-submit-btn">Submit Application</button>
+        <p id="form-msg" style="margin-top:1rem; font-size:0.82rem; display:none;"></p>
       </form>
+      <script>
+        async function submitForm(e) {
+          e.preventDefault();
+          const btn = document.getElementById('form-submit-btn');
+          const msg = document.getElementById('form-msg');
+          btn.textContent = 'Sending...';
+          btn.disabled = true;
+          msg.style.display = 'none';
+
+          try {
+            const res = await fetch('/api/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: document.getElementById('f-name').value,
+                organisation: document.getElementById('f-org').value,
+                email: document.getElementById('f-email').value,
+                tier: document.getElementById('f-tier').value,
+                notes: document.getElementById('f-notes').value,
+              }),
+            });
+
+            if (res.ok) {
+              msg.textContent = 'Application submitted. We\'ll be in touch shortly.';
+              msg.style.color = '#4caf7a';
+              document.getElementById('apply-form').reset();
+            } else {
+              msg.textContent = 'Something went wrong. Please try again or email us directly.';
+              msg.style.color = '#e05a5a';
+            }
+          } catch {
+            msg.textContent = 'Something went wrong. Please try again or email us directly.';
+            msg.style.color = '#e05a5a';
+          }
+
+          msg.style.display = 'block';
+          btn.textContent = 'Submit Application';
+          btn.disabled = false;
+        }
+      </script>
     </div>
   </div>
 
