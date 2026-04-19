@@ -1626,7 +1626,8 @@ Without a registry of certified entities, the market cannot distinguish between 
               msg.style.color = '#4caf7a';
               document.getElementById('apply-form').reset();
             } else {
-              msg.textContent = 'Something went wrong. Please try again or email us directly.';
+              const data = await res.json();
+              msg.textContent = 'Error: ' + (data.details?.message || data.error || 'Unknown error');
               msg.style.color = '#e05a5a';
             }
           } catch {

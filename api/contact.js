@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'DARC Certification <hello@darcstandard.org>',
+        from: 'DARC Certification <onboarding@resend.dev>',
         to: ['hello@darcstandard.org'],
         reply_to: email,
         subject: `New Certification Application — ${organisation}`,
@@ -38,8 +38,9 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const error = await response.json();
-      console.error('Resend error:', error);
-      return res.status(500).json({ error: 'Failed to send email' });
+      console.error('Resend error status:', response.status);
+      console.error('Resend error body:', JSON.stringify(error));
+      return res.status(500).json({ error: 'Failed to send email', details: error });
     }
 
     return res.status(200).json({ success: true });
