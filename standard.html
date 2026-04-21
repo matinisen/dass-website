@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DARC-1 Standard — Control Catalog</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #08090f;
+      --bg2:       #0c0f1a;
+      --bg3:       #10141f;
+      --border:    rgba(255,255,255,0.07);
+      --border2:   rgba(255,255,255,0.12);
+      --gold:      #c9a84c;
+      --gold-dim:  rgba(201,168,76,0.1);
+      --gold-line: rgba(201,168,76,0.3);
+      --text:      #f0ede8;
+      --text-soft: rgba(240,237,232,0.55);
+      --text-muted:rgba(240,237,232,0.3);
+      --font-head: 'Barlow Condensed', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3.5rem;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,9,15,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .nav-logo-mark {
+      display: flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .nav-back {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-back::before { content: '←'; font-size: 0.85rem; }
+
+    /* ─── LAYOUT ─── */
+    main {
+      position: relative;
+      z-index: 1;
+      padding-top: 56px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 3.5rem;
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 0 4rem;
+    }
+
+    .page-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .page-tag::before {
+      content: '';
+      width: 1.5rem; height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-header h1 span { color: var(--gold); }
+
+    .page-header p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      line-height: 1.75;
+      max-width: 640px;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.25rem;
+    }
+
+    /* ─── SUMMARY BAR ─── */
+    .summary-bar {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-left: 1px solid var(--border);
+    }
+
+    .summary-item {
+      padding: 2rem 2.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .summary-n {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 2.4rem;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .summary-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    /* ─── DOMAIN NAV ─── */
+    .domain-nav {
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 56px;
+      background: rgba(8,9,15,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+
+    .domain-nav-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .domain-nav-inner::-webkit-scrollbar { display: none; }
+
+    .domain-pill {
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 1rem;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .domain-pill:hover {
+      color: var(--gold);
+      border-color: var(--gold-line);
+      background: var(--gold-dim);
+    }
+
+    /* ─── DOMAIN SECTIONS ─── */
+    .domains {
+      padding-bottom: 6rem;
+    }
+
+    .domain-section {
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 0;
+    }
+    .domain-section:last-child { border-bottom: none; }
+
+    .domain-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .domain-code {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 80px;
+    }
+
+    .domain-meta {}
+
+    .domain-title {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .domain-desc {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      letter-spacing: 0.02em;
+    }
+
+    .domain-conditional {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border2);
+      padding: 0.2rem 0.55rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ─── CONTROLS ─── */
+    .controls-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .control-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .control-item:last-child { border-bottom: none; }
+
+    .control-id {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 1.25rem 1.5rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      background: var(--bg2);
+    }
+
+    .control-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .control-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .control-text {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .footer-mark {
+      display: flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px;
+      border: 1px solid var(--border2);
+      color: var(--text-muted);
+      font-size: 0.55rem;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav, .page-header, .summary-grid, .domain-nav-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .container { padding: 0 1.5rem; }
+      nav { padding: 0 1.5rem; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .summary-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .control-item { grid-template-columns: 1fr; }
+      .control-id { border-right: none; border-bottom: 1px solid var(--border); padding: 0.75rem 1.25rem; }
+      .domain-header { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark">D</span>
+      DARC
+    </a>
+    <a href="index.html" class="nav-back">Back to home</a>
+  </nav>
+
+  <main>
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="container">
+        <p class="page-tag">Open Standard</p>
+        <h1>DARC<span>-1</span><br>Control Catalog</h1>
+        <p>The Foundation tier. 88 controls across 12 domains establishing the operational baseline. Organizations meeting DARC-1 will not lose funds to operational failures.</p>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary-bar">
+      <div class="container">
+        <div class="summary-grid">
+          <div class="summary-item">
+            <div class="summary-n">88</div>
+            <div class="summary-label">Foundation Controls</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-n">12</div>
+            <div class="summary-label">Domains</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAIN NAV -->
+    <div class="domain-nav">
+      <div class="container">
+        <div class="domain-nav-inner">
+          <a href="#gv" class="domain-pill">GV — Governance</a>
+          <a href="#km" class="domain-pill">KM — Key Management</a>
+          <a href="#ms" class="domain-pill">MS — Multisig</a>
+          <a href="#ac" class="domain-pill">AC — Access Control</a>
+          <a href="#sd" class="domain-pill">SD — Secure Dev</a>
+          <a href="#sc" class="domain-pill">SC — Smart Contracts</a>
+          <a href="#im" class="domain-pill">IM — Incident Mgmt</a>
+          <a href="#tm" class="domain-pill">TM — Treasury</a>
+          <a href="#cm" class="domain-pill">CM — Monitoring</a>
+          <a href="#sy" class="domain-pill">SY — Supply Chain</a>
+          <a href="#fd" class="domain-pill">FD — Frontend & DNS</a>
+          <a href="#ps" class="domain-pill">PS — Physical</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAINS -->
+    <div class="domains">
+      <div class="container">
+
+        <!-- GV -->
+        <div class="domain-section" id="gv">
+          <div class="domain-header">
+            <div class="domain-code">GV</div>
+            <div class="domain-meta">
+              <div class="domain-title">Governance &amp; Compliance</div>
+              <div class="domain-desc">Organizational accountability — named owners, written policy, personnel security.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">GV-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Named security owner</div>
+                <div class="control-text">One person accountable for security posture.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">GV-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Security policy</div>
+                <div class="control-text">Written in plain language, accessible to all personnel.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">GV-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Asset inventory</div>
+                <div class="control-text">Wallets, keys, domains, accounts, devices: what exists and who owns it.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">GV-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Critical assets identified</div>
+                <div class="control-text">Keys, wallets, admin accounts, and domains documented. Critical = asset whose compromise would result in fund loss, data breach, or service outage.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">GV-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Onboarding security acknowledgment</div>
+                <div class="control-text">Security policy acknowledged before access is granted.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">GV-1.06</div>
+              <div class="control-body">
+                <div class="control-name">Confidentiality agreements</div>
+                <div class="control-text">NDAs for all personnel handling keys, funds, or sensitive code.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">GV-1.07</div>
+              <div class="control-body">
+                <div class="control-name">Security responsibilities in contracts</div>
+                <div class="control-text">Employment and contractor agreements include security responsibilities.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">GV-1.08</div>
+              <div class="control-body">
+                <div class="control-name">Social engineering awareness</div>
+                <div class="control-text">Personnel informed of industry-specific vectors: impersonation, fake job offers, malicious meeting links, urgent transfer requests. Verification procedure defined for unusual requests.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KM -->
+        <div class="domain-section" id="km">
+          <div class="domain-header">
+            <div class="domain-code">KM</div>
+            <div class="domain-meta">
+              <div class="domain-title">Key Management</div>
+              <div class="domain-desc">Key protection baseline — encryption, backup, access, and compromise response.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">KM-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Keys encrypted at rest</div>
+                <div class="control-text">Never stored in plaintext, docs, or chat.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">KM-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Backup for all critical keys</div>
+                <div class="control-text">Stored separately from the primary.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">KM-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Backup recovery tested</div>
+                <div class="control-text">At least once per critical key/seed to confirm the backup is complete and usable.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">KM-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Backup media environmental protection</div>
+                <div class="control-text">Protected against fire, water, and other environmental hazards.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">KM-1.05</div>
+              <div class="control-body">
+                <div class="control-name">2FA on key systems</div>
+                <div class="control-text">Required for all systems that store or provide access to key material (KMS, vaults, custodial platforms).</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">KM-1.06</div>
+              <div class="control-body">
+                <div class="control-name">No shared signing devices</div>
+                <div class="control-text">No single device may hold two or more signing keys for the same multisig.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">KM-1.07</div>
+              <div class="control-body">
+                <div class="control-name">Wallet and key registry</div>
+                <div class="control-text">All keys, who holds them, what they control, which wallets, addresses, and chains. Canonical registry — MS and TM domains add domain-specific columns.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">KM-1.08</div>
+              <div class="control-body">
+                <div class="control-name">Key Compromise Protocol</div>
+                <div class="control-text">Written KCP exists: who to notify, immediate containment (move funds to new wallet), and escalation contacts. At least 2 team members can locate and execute it.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MS -->
+        <div class="domain-section" id="ms">
+          <div class="domain-header">
+            <div class="domain-code">MS</div>
+            <div class="domain-meta">
+              <div class="domain-title">Multisig Governance</div>
+              <div class="domain-desc">Multisig baseline — configuration, hardware signing, and independent verification.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">MS-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Multisig required for all fund-controlling wallets</div>
+                <div class="control-text">No single-signer for anything material.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">MS-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Minimum 3 signers, threshold ≥50%</div>
+                <div class="control-text">For example 2-of-3 or 3-of-5. No N-of-N configurations.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">MS-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Signer details in key registry</div>
+                <div class="control-text">Signer addresses, signer identity, and which multisig recorded in the KM wallet registry.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">MS-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Hardware wallet signing required</div>
+                <div class="control-text">Every signature must originate from a hardware wallet or equivalent hardware-backed signing device for any multisig controlling funds or permissions. Browser extensions and mobile hot wallets are not acceptable. Testnet and ephemeral development multisigs are exempt.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">MS-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Signing hardware authenticity verified</div>
+                <div class="control-text">Sourced only from the manufacturer or an explicitly authorized reseller. Authenticity-check procedure (firmware signature verification, tamper-evidence inspection) run on first use and outcome recorded.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">MS-1.06</div>
+              <div class="control-body">
+                <div class="control-name">No key reuse across multisigs</div>
+                <div class="control-text">Each signing role gets a fresh key bound to one multisig and used for no other purpose.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">MS-1.07</div>
+              <div class="control-body">
+                <div class="control-name">Independent pre-sign verification</div>
+                <div class="control-text">Each signer independently verifies destination address, transfer amount, and calldata against the transaction request before signing. Verification documented (screenshot, chat confirmation, or signing tool log).</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">MS-1.08</div>
+              <div class="control-body">
+                <div class="control-name">No single entity controls quorum</div>
+                <div class="control-text">No single entity controls enough signing keys to meet the approval threshold.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AC -->
+        <div class="domain-section" id="ac">
+          <div class="domain-header">
+            <div class="domain-code">AC</div>
+            <div class="domain-meta">
+              <div class="domain-title">Access Control</div>
+              <div class="domain-desc">Access control baseline — MFA, credentials, device security, and offboarding.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">AC-1.01</div>
+              <div class="control-body">
+                <div class="control-name">MFA on all organizational accounts</div>
+                <div class="control-text">No exceptions. SMS-based MFA not acceptable as the sole second factor for accounts with access to funds, keys, or admin systems — TOTP or hardware keys required.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Password manager required</div>
+                <div class="control-text">Every person with organizational account access stores credentials in an approved password manager. Plaintext passwords in documents, chat, email, or browser auto-fill are prohibited.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Unique strong passwords per account</div>
+                <div class="control-text">No password reuse across accounts.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Individual accounts only</div>
+                <div class="control-text">No shared personal credentials.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Departing personnel access removed within one day</div>
+                <div class="control-text">Access to every organizational system removed within one day of the effective separation date.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.06</div>
+              <div class="control-body">
+                <div class="control-name">Onboarding security acknowledgment</div>
+                <div class="control-text">Security policy acknowledged before access is granted (per GV domain).</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.07</div>
+              <div class="control-body">
+                <div class="control-name">Credentials never shared via email or chat</div>
+                <div class="control-text">Use password manager sharing or an encrypted channel.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.08</div>
+              <div class="control-body">
+                <div class="control-name">Full disk encryption on all devices</div>
+                <div class="control-text">All organizational devices must have full disk encryption enabled.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.09</div>
+              <div class="control-body">
+                <div class="control-name">Auto-lock on all devices</div>
+                <div class="control-text">All organizational devices must auto-lock after a defined idle period.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.10</div>
+              <div class="control-body">
+                <div class="control-name">Automated OS and security patching</div>
+                <div class="control-text">Applied automatically on all organizational devices with a documented patch-latency SLA.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.11</div>
+              <div class="control-body">
+                <div class="control-name">No public/shared Wi-Fi for sensitive systems</div>
+                <div class="control-text">Key management, custody, and admin systems must not be accessed on public or shared Wi-Fi.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.12</div>
+              <div class="control-body">
+                <div class="control-name">Screen lock in shared spaces</div>
+                <div class="control-text">Screen lock and privacy measures required when working in shared spaces.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.13</div>
+              <div class="control-body">
+                <div class="control-name">Browser extension restrictions on signing devices</div>
+                <div class="control-text">Unapproved browser extensions prohibited on devices used for signing or accessing custody platforms. Minimal approved-extension list maintained.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.14</div>
+              <div class="control-body">
+                <div class="control-name">Remote-wipe capability on all devices</div>
+                <div class="control-text">Every organizational device has working remote-wipe via native OS account-tied capability or equivalent. Verified at provisioning and must remain enabled.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">AC-1.15</div>
+              <div class="control-body">
+                <div class="control-name">Lost/stolen device runbook</div>
+                <div class="control-text">Written runbook covering: who gets paged first, triggering the remote wipe, rotating any credentials on the device, and escalating per the IR playbook.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SD -->
+        <div class="domain-section" id="sd">
+          <div class="domain-header">
+            <div class="domain-code">SD</div>
+            <div class="domain-meta">
+              <div class="domain-title">Secure Development</div>
+              <div class="domain-desc">Secure development baseline — branch protection, secret scanning, and dependency management.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">SD-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Branch protection on main/production</div>
+                <div class="control-text">Require reviews before merge.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Signed commits on main/production branches</div>
+                <div class="control-text">Commit signing required on all protected branches.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Automated secret scanning on all repositories</div>
+                <div class="control-text">Continuous scanning for accidentally committed secrets.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Pre-commit hooks for secret patterns</div>
+                <div class="control-text">Developer workstations run git hooks that reject commits containing matches to the secret-scanning patterns.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Dependency scanning for known vulnerabilities</div>
+                <div class="control-text">Automated scanning of all dependencies against known CVEs.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.06</div>
+              <div class="control-body">
+                <div class="control-name">Dependencies from official sources, version pinned</div>
+                <div class="control-text">All dependencies sourced from official registries with pinned versions.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.07</div>
+              <div class="control-body">
+                <div class="control-name">Secrets not in source code</div>
+                <div class="control-text">Use a secrets management system or environment variables. Env vars must not be committed to version control and must be restricted to the runtime environment.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.08</div>
+              <div class="control-body">
+                <div class="control-name">Dev/staging isolated from production credentials</div>
+                <div class="control-text">Dev and staging environments have no path to the credentials that grant production access.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SD-1.09</div>
+              <div class="control-body">
+                <div class="control-name">Cloud accounts secured with MFA</div>
+                <div class="control-text">AWS, GCP, Vercel, and similar accounts secured with MFA. No root/owner key in daily use.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SC -->
+        <div class="domain-section" id="sc">
+          <div class="domain-header">
+            <div class="domain-code">SC</div>
+            <div class="domain-meta">
+              <div class="domain-title">Smart Contract Ops</div>
+              <div class="domain-desc">Audit and deployment baseline — external audits, verified contracts, access control documentation.</div>
+              <span class="domain-conditional">Conditional — only if deploying contracts</span>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">SC-1.01</div>
+              <div class="control-body">
+                <div class="control-name">External smart contract audit before mainnet</div>
+                <div class="control-text">At least one audit by a recognized firm. Organization documents the criteria used to qualify a firm as recognized.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SC-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Audit report available</div>
+                <div class="control-text">Publicly available or available to certification auditor.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SC-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Critical/high findings addressed before deployment</div>
+                <div class="control-text">All critical and high severity audit findings resolved prior to mainnet deployment.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SC-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Deployed contracts verified and source published</div>
+                <div class="control-text">Source code published on Etherscan or equivalent block explorer.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SC-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Deployed bytecode matches audited source</div>
+                <div class="control-text">Verified by reproducing compilation with documented compiler version, optimization settings, and EVM target. Compilation parameters recorded as audit artifacts.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SC-1.06</div>
+              <div class="control-body">
+                <div class="control-name">Privileged functions documented</div>
+                <div class="control-text">Admin, owner, and upgrader functions documented with access control details.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SC-1.07</div>
+              <div class="control-body">
+                <div class="control-name">Deployment procedures documented</div>
+                <div class="control-text">Basic deployment procedures documented covering who deploys, how, and what checks are performed.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IM -->
+        <div class="domain-section" id="im">
+          <div class="domain-header">
+            <div class="domain-code">IM</div>
+            <div class="domain-meta">
+              <div class="domain-title">Incident Management</div>
+              <div class="domain-desc">Incident response baseline — named owner, emergency contacts, written response document, and audit logs.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">IM-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Named person responsible for security incidents</div>
+                <div class="control-text">One individual accountable for incident response.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">IM-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Emergency contact list</div>
+                <div class="control-text">Internal team, external security resources (ecosystem emergency response services, forensics firms), maintained and accessible. Canonical list — MS extends with signer contacts.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">IM-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Written incident response document</div>
+                <div class="control-text">Covers: (a) first contact person, (b) incident communication channel, (c) three immediate actions — contain, assess scope, notify. Accessible to all team members.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">IM-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Incident reporting channel known to all</div>
+                <div class="control-text">All team members know the incident reporting channel.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">IM-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Audit logs for key systems</div>
+                <div class="control-text">At minimum: auth events, transactions, and deployments.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TM -->
+        <div class="domain-section" id="tm">
+          <div class="domain-header">
+            <div class="domain-code">TM</div>
+            <div class="domain-meta">
+              <div class="domain-title">Treasury Management</div>
+              <div class="domain-desc">Treasury baseline — multisig wallets, fund segregation, address verification, and spending policies.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">TM-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Treasury wallets use multisig</div>
+                <div class="control-text">Follows MS domain requirements.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">TM-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Company funds segregated from user/client funds</div>
+                <div class="control-text">Organizational treasury kept separate from any user or client holdings.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">TM-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Treasury details in key registry</div>
+                <div class="control-text">Address, purpose, chain, and custody model recorded in KM wallet registry.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">TM-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Test transfer to new addresses</div>
+                <div class="control-text">A small test transfer to any newly-added destination confirms address correctness before the full-value transaction is sent.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">TM-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Address verified from multiple sources</div>
+                <div class="control-text">Never from email, chat, or transaction history alone.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">TM-1.06</div>
+              <div class="control-body">
+                <div class="control-name">Basic spending policies</div>
+                <div class="control-text">Who can initiate and approval thresholds for different transfer amounts.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">TM-1.07</div>
+              <div class="control-body">
+                <div class="control-name">Treasury transactions recorded</div>
+                <div class="control-text">All treasury transactions recorded with basic categorization.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CM -->
+        <div class="domain-section" id="cm">
+          <div class="domain-header">
+            <div class="domain-code">CM</div>
+            <div class="domain-meta">
+              <div class="domain-title">On-Chain Monitoring</div>
+              <div class="domain-desc">Monitoring baseline — wallet alerts, threshold alerts, and named reviewer.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">CM-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Monitor all treasury/multisig wallets</div>
+                <div class="control-text">Alert on unexpected transactions across all fund-holding wallets.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">CM-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Alerting on large transfers</div>
+                <div class="control-text">Alerts triggered for transfers above defined thresholds.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">CM-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Alerting on signer/threshold changes</div>
+                <div class="control-text">Alerts on any change to the multisig owner set or approval threshold.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">CM-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Named reviewer with defined cadence</div>
+                <div class="control-text">Named individual assigned to review alerts. If critical alerts go unreviewed, a second person is notified.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">CM-1.05</div>
+              <div class="control-body">
+                <div class="control-name">At least one monitoring tool in use</div>
+                <div class="control-text">Active monitoring service or tool deployed for on-chain activity.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SY -->
+        <div class="domain-section" id="sy">
+          <div class="domain-header">
+            <div class="domain-code">SY</div>
+            <div class="domain-meta">
+              <div class="domain-title">Supply Chain Security</div>
+              <div class="domain-desc">Dependency awareness — inventory, official sources, version pinning, and vulnerability scanning.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">SY-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Inventory of critical external dependencies</div>
+                <div class="control-text">RPC providers, oracles, bridges, indexers, and hosting documented.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SY-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Dependencies from official sources only</div>
+                <div class="control-text">npm, PyPI, crates.io — not forks, not random URLs.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SY-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Version pinning for all dependencies</div>
+                <div class="control-text">Lockfiles committed to version control.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SY-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Automated dependency vulnerability scanning in CI/CD</div>
+                <div class="control-text">All dependencies scanned for known CVEs on every build.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SY-1.05</div>
+              <div class="control-body">
+                <div class="control-name">No unversioned external resources in build/deploy</div>
+                <div class="control-text">No build or deploy step pulls unversioned external resources.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">SY-1.06</div>
+              <div class="control-body">
+                <div class="control-name">Cross-chain bridge risk assessment</div>
+                <div class="control-text">For any protocol using bridges: validator set size, upgrade authority, incident history, and maximum exposure limits documented. Conditional — only if using bridges.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FD -->
+        <div class="domain-section" id="fd">
+          <div class="domain-header">
+            <div class="domain-code">FD</div>
+            <div class="domain-meta">
+              <div class="domain-title">Frontend &amp; DNS Security</div>
+              <div class="domain-desc">DNS and domain baseline — inventory, MFA, auto-renewal, email authentication, and TLS monitoring.</div>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">FD-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Domain inventory</div>
+                <div class="control-text">All domains, registrars, expiration dates, and purpose documented.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">FD-1.02</div>
+              <div class="control-body">
+                <div class="control-name">MFA on registrar and DNS accounts</div>
+                <div class="control-text">Every account that can change registrar settings, DNS records, or zone configuration protected with MFA per AC-1.01, with SMS excluded as the second factor.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">FD-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Auto-renewal enabled on all domains</div>
+                <div class="control-text">Funded by a payment method valid through the next renewal cycle, with a reminder set before card expiration.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">FD-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Payment methods current, backup renewal owner</div>
+                <div class="control-text">Payment methods verified current with a named backup person for domain renewal.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">FD-1.05</div>
+              <div class="control-body">
+                <div class="control-name">Email authentication (SPF, DKIM, DMARC)</div>
+                <div class="control-text">Outbound email authenticated end-to-end: SPF enumerates legitimate senders, DKIM signs every message, and DMARC enforces alignment reaching p=reject after a monitoring period. Domains not used to send email publish null SPF plus p=reject DMARC.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">FD-1.06</div>
+              <div class="control-body">
+                <div class="control-name">TLS certificate expiration tracking</div>
+                <div class="control-text">Every certificate enrolled in an expiration-tracking system that alerts at least 30 days before expiry, with a named owner per certificate.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PS -->
+        <div class="domain-section" id="ps">
+          <div class="domain-header">
+            <div class="domain-code">PS</div>
+            <div class="domain-meta">
+              <div class="domain-title">Physical Security</div>
+              <div class="domain-desc">Physical security baseline — hardware storage, clear desk policy, visitor procedures, and procurement provenance.</div>
+              <span class="domain-conditional">Conditional — N/A for fully remote teams with no office/facility. Justify with evidence that key material is protected per KM domain.</span>
+            </div>
+          </div>
+          <div class="controls-list">
+            <div class="control-item">
+              <div class="control-id">PS-1.01</div>
+              <div class="control-body">
+                <div class="control-name">Hardware wallets and signing devices secured</div>
+                <div class="control-text">Stored in locked safe/cabinet when not in use.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">PS-1.02</div>
+              <div class="control-body">
+                <div class="control-name">Clear desk policy</div>
+                <div class="control-text">No seed phrases, passwords, or sensitive material left visible.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">PS-1.03</div>
+              <div class="control-body">
+                <div class="control-name">Visitor policy for sensitive workspaces</div>
+                <div class="control-text">Policy in place for any workspace where key material or signing operations occur.</div>
+              </div>
+            </div>
+            <div class="control-item">
+              <div class="control-id">PS-1.04</div>
+              <div class="control-body">
+                <div class="control-name">Security-critical hardware procurement provenance</div>
+                <div class="control-text">Servers, HSMs, and signing devices procured directly from the manufacturer or an explicitly authorized reseller. Procurement provenance recorded.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-logo">
+          <span class="footer-mark">D</span>
+          DARC
+        </a>
+        <span class="footer-note">DARC-1 — Foundation Tier</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
