@@ -156,7 +156,7 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       border-left: 1px solid var(--border);
     }
 
@@ -180,6 +180,149 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-soft);
+    }
+
+    /* ─── INTRO SECTION ─── */
+    .intro-section {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5rem;
+    }
+
+    .intro-header {
+      padding: 4rem 0 3rem;
+      max-width: 680px;
+    }
+
+    .intro-header h2 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-header h2 span { color: var(--gold); }
+
+    .intro-header p {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      line-height: 1.8;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.25rem;
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      max-width: 720px;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .accordion-item:first-child { border-top: 1px solid var(--border); }
+
+    .accordion-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 0;
+      gap: 2rem;
+      text-align: left;
+    }
+
+    .accordion-trigger-label {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      transition: color 0.15s;
+    }
+
+    .accordion-trigger:hover .accordion-trigger-label { color: var(--gold); }
+
+    .accordion-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      position: relative;
+      color: var(--text-muted);
+      transition: color 0.15s;
+    }
+    .accordion-icon::before,
+    .accordion-icon::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .accordion-icon::before { width: 12px; height: 1px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .accordion-icon::after  { width: 1px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+    .accordion-item.open .accordion-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+    .accordion-item.open .accordion-trigger-label { color: var(--gold); }
+    .accordion-item.open .accordion-icon { color: var(--gold); }
+
+    .accordion-body {
+      display: none;
+      padding-bottom: 1.75rem;
+    }
+    .accordion-item.open .accordion-body { display: block; }
+
+    .accordion-body p {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      line-height: 1.78;
+      margin-bottom: 0.75rem;
+    }
+    .accordion-body p:last-child { margin-bottom: 0; }
+
+    .accordion-body ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 0.75rem;
+    }
+    .accordion-body ul:last-child { margin-bottom: 0; }
+
+    .accordion-body ul li {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .accordion-body ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      opacity: 0.5;
+      font-size: 0.75rem;
+    }
+
+    .accordion-sub {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      margin: 1.1rem 0 0.4rem;
+    }
+    .accordion-sub:first-child { margin-top: 0; }
+
+    .catalog-header {
+      padding: 4rem 0 2rem;
     }
 
     /* ─── DOMAIN NAV ─── */
@@ -394,12 +537,82 @@
     <div class="page-header">
       <div class="container">
         <p class="page-tag">Open Standard</p>
-        <h1>DARC<span>-1</span><br>Control Catalog</h1>
-        <p>The Foundation tier. 88 controls across 12 domains establishing the operational baseline. Organizations meeting DARC-1 will not lose funds to operational failures.</p>
+        <h1>DARC<span>-1</span><br>Foundational<br>Certification</h1>
+        <p>The baseline for operational trust. DARC-1 defines a minimum standard for how digital asset systems operate in practice — evaluating the controls, processes, and infrastructure that determine real-world reliability, beyond your codebase.</p>
       </div>
     </div>
 
-    <!-- SUMMARY -->
+    <!-- INTRO -->
+    <div class="intro-section">
+      <div class="container">
+        <div class="accordion">
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span class="accordion-trigger-label">Why It Matters</span>
+              <span class="accordion-icon"></span>
+            </button>
+            <div class="accordion-body">
+              <p>The existing audit landscape assesses code, not operations. Key management, multisig controls, infrastructure access, and incident response remain largely unassessed.</p>
+              <p>There is no standard for operational maturity. As a result, due diligence is inconsistent, institutional capital faces friction, and operational risk is difficult to compare.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span class="accordion-trigger-label">What DARC-1 Provides</span>
+              <span class="accordion-icon"></span>
+            </button>
+            <div class="accordion-body">
+              <p>A standardized, externally verifiable signal of operational maturity. It allows protocols to:</p>
+              <ul>
+                <li>Demonstrate baseline operational discipline</li>
+                <li>Differentiate from unaudited or under-managed systems</li>
+                <li>Provide a consistent reference for investors and partners</li>
+              </ul>
+              <div class="accordion-sub">A Clear Baseline</div>
+              <p>Core operational controls across:</p>
+              <ul>
+                <li>Multisig configuration and key management</li>
+                <li>Infrastructure security and access control</li>
+                <li>Governance setup and upgrade permissions</li>
+                <li>Incident response and escalation procedures</li>
+                <li>Baseline operational security practices</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span class="accordion-trigger-label">How It Works</span>
+              <span class="accordion-icon"></span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-sub">Assessment Process</div>
+              <ul>
+                <li>Scope definition across key operational domains</li>
+                <li>Review of controls, processes, and configurations</li>
+                <li>Identification of gaps and required improvements</li>
+                <li>Certification upon meeting baseline requirements</li>
+              </ul>
+              <div class="accordion-sub">Public Registry</div>
+              <p>Certified protocols are listed in the DARC Public Registry. Status, tier, and audit history are publicly available and verifiable on-chain.</p>
+              <div class="accordion-sub">Annual Recertification</div>
+              <p>Maintain certification through annual audits at a standardized, fractional cost.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CATALOG HEADER -->
+    <div class="catalog-header">
+      <div class="container">
+        <p class="page-tag">DARC-1</p>
+        <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(2rem,3.5vw,3rem);text-transform:uppercase;color:var(--text);line-height:1;">Control Catalog</h2>
+      </div>
+    </div>
     <div class="summary-bar">
       <div class="container">
         <div class="summary-grid">
@@ -1229,5 +1442,13 @@
     </div>
   </footer>
 
+  <script>
+    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.accordion-item');
+        item.classList.toggle('open');
+      });
+    });
+  </script>
 </body>
 </html>
