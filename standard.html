@@ -662,18 +662,14 @@
       <div class="container">
         <p class="page-tag">Open Standard</p>
         <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(2rem,3.5vw,3rem);text-transform:uppercase;color:var(--text);line-height:1;margin-bottom:2rem;">Control Catalog</h2>
-        <div class="tier-toggle">
-          <button class="tier-btn active" data-tier="1">DARC1</button>
-          <button class="tier-btn" data-tier="2">DARC1 + DARC2</button>
-        </div>
       </div>
     </div>
     <div class="summary-bar">
       <div class="container">
         <div class="summary-grid" id="summary-grid">
           <div class="summary-item">
-            <div class="summary-n" id="control-count">88</div>
-            <div class="summary-label" id="control-label">Foundation Controls</div>
+            <div class="summary-n">249</div>
+            <div class="summary-label">Controls (DARC1 + DARC2)</div>
           </div>
           <div class="summary-item">
             <div class="summary-n">12</div>
@@ -2680,30 +2676,6 @@
       });
     });
 
-    // Tier toggle
-    const tier2Els = document.querySelectorAll('[data-tier="2"]');
-    const countEl = document.getElementById('control-count');
-    const labelEl = document.getElementById('control-label');
-
-    document.querySelectorAll('.tier-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const tier = btn.dataset.tier;
-        if (tier === '1') {
-          tier2Els.forEach(el => el.style.display = 'none');
-          countEl.textContent = '88';
-          labelEl.textContent = 'Foundation Controls';
-        } else {
-          tier2Els.forEach(el => el.style.display = '');
-          countEl.textContent = '249';
-          labelEl.textContent = 'Operational Controls';
-        }
-      });
-    });
-
-    // Hide DARC2 by default
-    tier2Els.forEach(el => el.style.display = 'none');
   </script>
 </body>
 </html>
