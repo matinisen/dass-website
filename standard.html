@@ -509,6 +509,57 @@
       letter-spacing: 0.05em;
     }
 
+    /* ─── TIER TOGGLE ─── */
+    .tier-toggle {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+    }
+
+    .tier-btn {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--border2);
+      color: var(--text-muted);
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-right: -1px;
+    }
+    .tier-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+    .tier-btn.active { background: var(--gold); color: #08090f; border-color: var(--gold); }
+
+    /* ─── TIER DIVIDER ─── */
+    .tier-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(154,95,191,0.06);
+      border-bottom: 1px solid var(--border);
+      border-top: 1px solid rgba(154,95,191,0.2);
+    }
+
+    .tier-divider-label {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9a5fbf;
+    }
+
+    .tier-divider-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .control-id.t2 { color: #9a5fbf; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       nav, .page-header, .summary-grid, .domain-nav-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
@@ -609,16 +660,20 @@
     <!-- CATALOG HEADER -->
     <div class="catalog-header">
       <div class="container">
-        <p class="page-tag">DARC1</p>
-        <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(2rem,3.5vw,3rem);text-transform:uppercase;color:var(--text);line-height:1;">Control Catalog</h2>
+        <p class="page-tag">Open Standard</p>
+        <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(2rem,3.5vw,3rem);text-transform:uppercase;color:var(--text);line-height:1;margin-bottom:2rem;">Control Catalog</h2>
+        <div class="tier-toggle">
+          <button class="tier-btn active" data-tier="1">DARC1</button>
+          <button class="tier-btn" data-tier="2">DARC1 + DARC2</button>
+        </div>
       </div>
     </div>
     <div class="summary-bar">
       <div class="container">
-        <div class="summary-grid">
+        <div class="summary-grid" id="summary-grid">
           <div class="summary-item">
-            <div class="summary-n">88</div>
-            <div class="summary-label">Foundation Controls</div>
+            <div class="summary-n" id="control-count">88</div>
+            <div class="summary-label" id="control-label">Foundation Controls</div>
           </div>
           <div class="summary-item">
             <div class="summary-n">12</div>
@@ -718,6 +773,94 @@
                 <div class="control-text">Personnel informed of industry-specific vectors: impersonation, fake job offers, malicious meeting links, urgent transfer requests. Verification procedure defined for unusual requests.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Risk management and oversight</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Risk register maintained</div>
+                <div class="control-text">Identified risks, likelihood, impact, and mitigations documented and maintained.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Risk assessment reviewed after significant changes</div>
+                <div class="control-text">Reviewed after new products, incidents, or market shifts.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Formal data/system classification scheme</div>
+                <div class="control-text">Critical, sensitive, and standard classifications with controls mapped per level.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Security program KPIs</div>
+                <div class="control-text">Performance measured on at least six KPIs: MTTD, MTTR, audit-finding time-to-close, training completion rate, drill completion and gap-closure rate, and signer-quorum reachability SLA attainment. Targets documented per KPI.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Security policy reviewed annually</div>
+                <div class="control-text">Reviewed annually and after significant changes.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Regulatory awareness</div>
+                <div class="control-text">Team knows which regulations apply and basic compliance status.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Change management procedures</div>
+                <div class="control-text">Procedures defined for security-relevant changes.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Threat intelligence</div>
+                <div class="control-text">Actively track threats relevant to your stack and ecosystem.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Pre-established law enforcement contacts</div>
+                <div class="control-text">Pre-established contacts with law enforcement and relevant regulators.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Data breach prevention controls</div>
+                <div class="control-text">For systems handling user data: minimize data collected, encrypt at rest and in transit, breach detection and notification procedures.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Formal change advisory process</div>
+                <div class="control-text">Formal change advisory process for security-relevant decisions.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">GV-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Domain-specific owners assigned</div>
+                <div class="control-text">Named owners for each operational area (multisig ops, treasury ops, DevOps/infra, DNS/frontend). Accountability covers policy maintenance, reviews, and incident escalation.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -787,6 +930,66 @@
                 <div class="control-text">Written KCP exists: who to notify, immediate containment (move funds to new wallet), and escalation contacts. At least 2 team members can locate and execute it.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Formal key lifecycle</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Documented key generation procedures</div>
+                <div class="control-text">Isolated environment and verified software required for key generation.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Geographic distribution of backups</div>
+                <div class="control-text">Backups stored across geographically separate locations.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Tamper-evident storage for key material</div>
+                <div class="control-text">Key material stored in tamper-evident containers or media.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Key rotation schedule defined and enforced</div>
+                <div class="control-text">Rotation schedule documented and actively enforced for all key types.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Documented KCP with procedures per key type</div>
+                <div class="control-text">Specific procedures per key type, approved communication channels, and role-based actors with backups.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Keyholder onboarding/offboarding checklists</div>
+                <div class="control-text">Checklists with approved communication channels for transitions.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Independent channel confirmation before signing</div>
+                <div class="control-text">Before signing, each approver confirms the transaction through a channel independent of the request path.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">KM-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Background checks for keyholders</div>
+                <div class="control-text">Scope scales with fund exposure: identity verification at minimum, criminal/financial checks for signers controlling &gt;$1M equivalent.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -854,6 +1057,122 @@
               <div class="control-body">
                 <div class="control-name">No single entity controls quorum</div>
                 <div class="control-text">No single entity controls enough signing keys to meet the approval threshold.</div>
+              </div>
+            </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Operational multisig maturity</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Multisig classification by risk level</div>
+                <div class="control-text">Classification by impact and criticality with proportional controls.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Signer verification</div>
+                <div class="control-text">Message signing proof of address ownership required for all signers.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Signer training and assessment</div>
+                <div class="control-text">Completed before authorization, covering on-chain transaction verification, the emergency runbook, and crypto-specific phishing/social-engineering tactics.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Written transaction lifecycle handbook</div>
+                <div class="control-text">Covers: drafting and intent approval, pre-signing simulation, signature collection, broadcast confirmation, and post-execution audit-log entry.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Transaction hash verified across 2+ independent interfaces</div>
+                <div class="control-text">Different providers or independently hosted infrastructure required.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.06</div>
+              <div class="control-body">
+                <div class="control-name">High-risk transaction classification</div>
+                <div class="control-text">Transactions that can execute arbitrary code (EVM DELEGATECALL to non-allowlisted targets, proxy upgrades to unreviewed implementations) classified as high-risk and trigger the MS-2.07 approval pathway.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.07</div>
+              <div class="control-body">
+                <div class="control-name">High-risk transaction thresholds defined</div>
+                <div class="control-text">Elevated approval required, waiting periods required; exceptions documented with justification.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Private mempool for sensitive operations</div>
+                <div class="control-text">High-value or sensitive transactions submitted through a private mempool or equivalent private-submission path to reduce frontrunning and MEV exposure.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Emergency playbooks</div>
+                <div class="control-text">Playbooks for key compromise, lost access, and urgent actions.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Emergency-contact roster</div>
+                <div class="control-text">Covers every signer and stakeholder. Each signer has a backup contact. Refreshed every six months and after any role change affecting signer reachability.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Secure communication channels</div>
+                <div class="control-text">E2E encrypted channels, identity verification during signing, documented procedures for channel compromise.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Signer removal timelines per risk level</div>
+                <div class="control-text">Higher risk requires faster removal. Quarterly check that each named signer can independently sign.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.13</div>
+              <div class="control-body">
+                <div class="control-name">Isolated devices for high-value signing</div>
+                <div class="control-text">High-value signing operations performed on isolated devices or networks separate from daily-use systems.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.14</div>
+              <div class="control-body">
+                <div class="control-name">Signer reachability within 12 hours</div>
+                <div class="control-text">Quorum reachable within 12 hours for routine operations.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.15</div>
+              <div class="control-body">
+                <div class="control-name">Continuous multisig monitoring</div>
+                <div class="control-text">Alerts on: low signer balance, unknown counterparty, nonce discontinuity, module/guard changes, threshold transfers, owner set reconfiguration, and failed transactions.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">MS-2.16</div>
+              <div class="control-body">
+                <div class="control-name">Multisig transaction audit trails retained 1+ year</div>
+                <div class="control-text">All multisig transaction records retained for at least one year.</div>
               </div>
             </div>
           </div>
@@ -974,6 +1293,157 @@
                 <div class="control-text">Written runbook covering: who gets paged first, triggering the remote wipe, rotating any credentials on the device, and escalating per the IR playbook.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Formalized access management</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Hardware security key for sensitive accounts</div>
+                <div class="control-text">Every account reaching funds, keys, cloud admin consoles, or production infra must use FIDO2/WebAuthn hardware security key. TOTP is insufficient for these accounts.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Phishing-resistant MFA preferred everywhere</div>
+                <div class="control-text">Phishing-resistant MFA deployed as the default across all organizational accounts.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Account lifecycle procedures</div>
+                <div class="control-text">Documented approval required for account creation, modification, and revocation.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Least privilege enforced</div>
+                <div class="control-text">Each role gets minimum necessary access.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Regular access reviews</div>
+                <div class="control-text">Critical systems reviewed every six months; other systems annually. Review records include reviewer, date, and each change made.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Service accounts and API key inventory</div>
+                <div class="control-text">All service accounts and API keys tracked with a named responsible owner per credential.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Credential rotation schedule</div>
+                <div class="control-text">Rotation schedule defined; immediate rotation on suspected compromise.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Software and tool evaluation before adoption</div>
+                <div class="control-text">Evaluation required for all tools including AI tools and browser extensions.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Security awareness training twice per year</div>
+                <div class="control-text">At least one live phishing simulation per cycle. Curriculum covers crypto-specific vectors: recruiting-pretext scams, wallet-drainer extensions, clipboard-swap malware, and impersonation attacks.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Insider threat assessment</div>
+                <div class="control-text">Damage scenarios documented per role.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Separation of duties for sensitive actions</div>
+                <div class="control-text">No single person both initiates and approves a funds-moving, key-touching, or privileged-infrastructure action.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Malware protection on all devices</div>
+                <div class="control-text">Antivirus, EDR, or equivalent deployed. Must cover crypto-specific threats: clipboard hijackers and malicious wallet extensions.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.13</div>
+              <div class="control-body">
+                <div class="control-name">Remote work policy formalized</div>
+                <div class="control-text">VPN for sensitive systems, approved devices, and home network requirements.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.14</div>
+              <div class="control-body">
+                <div class="control-name">BYOD policy</div>
+                <div class="control-text">Specifies which resources a personal device may reach and required baseline controls: full-disk encryption, auto-lock, automatic patching, remote-wipe capability, and documented personal/work data separation.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.15</div>
+              <div class="control-body">
+                <div class="control-name">Device security baseline confirmed before access</div>
+                <div class="control-text">Disk encryption, auto-lock, patching, and remote-wipe confirmed before granting access and rechecked at a defined cadence.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.16</div>
+              <div class="control-body">
+                <div class="control-name">Documented onboarding checklist</div>
+                <div class="control-text">Identity verification, device provisioning, MFA setup, security training, policy acknowledgment. Consistently applied.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.17</div>
+              <div class="control-body">
+                <div class="control-name">Offboarding checklist</div>
+                <div class="control-text">Covers device return/sanitization, account disabling, shared credential revocation, secret rotation, physical item retrieval, and confirmation no active session remains.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.18</div>
+              <div class="control-body">
+                <div class="control-name">Involuntary termination access cut-off</div>
+                <div class="control-text">Access cut at moment of notification or earlier. Only exception: legal requirement to notify first (in writing); access cut within one hour of notification.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.19</div>
+              <div class="control-body">
+                <div class="control-name">Account recovery points to org-controlled infrastructure</div>
+                <div class="control-text">Password-reset and recovery options on every org account point only to infrastructure the organization controls. Personal email, employee phone numbers, and SMS recovery are prohibited.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.20</div>
+              <div class="control-body">
+                <div class="control-name">SaaS platform hardening baselines published</div>
+                <div class="control-text">Baselines for email/calendar, team-chat, and source-control platforms specifying MFA posture, session duration, sharing defaults, and audit-log retention. Deployments checked against baseline.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">AC-2.21</div>
+              <div class="control-body">
+                <div class="control-name">Travel protocol for signers</div>
+                <div class="control-text">Travel-specific device with no persistent key material, no connection to org systems from untrusted networks without VPN, and scheduled check-in cadence with another signer during travel.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1050,6 +1520,115 @@
                 <div class="control-text">AWS, GCP, Vercel, and similar accounts secured with MFA. No root/owner key in daily use.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Secure pipeline and infrastructure</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Two-reviewer approval for protected branches</div>
+                <div class="control-text">No merge to a protected branch without approval from at least two reviewers who did not author the change.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.02</div>
+              <div class="control-body">
+                <div class="control-name">External contributor PRs don't auto-trigger CI/CD</div>
+                <div class="control-text">CI/CD pipelines require manual approval before running on external contributor pull requests.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.03</div>
+              <div class="control-body">
+                <div class="control-name">SAST integrated in CI/CD pipeline</div>
+                <div class="control-text">Static application security testing runs on every build.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Repository sandboxing</div>
+                <div class="control-text">Each repository runs in its own sandbox with no shared state. Privileged work (wallet signing, cloud admin) performed from a separate OS account with no overlap with the development account.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.05</div>
+              <div class="control-body">
+                <div class="control-name">CI/CD config changes require multi-reviewer approval</div>
+                <div class="control-text">Changes to pipeline definitions, runners, triggers, and deployment targets treated as protected-branch merges.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.06</div>
+              <div class="control-body">
+                <div class="control-name">CI/CD runners have no persistent production secrets</div>
+                <div class="control-text">Runners do not hold persistent access to production secrets between runs.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Dedicated secrets management system</div>
+                <div class="control-text">Not plaintext environment variables — a proper secrets management system required.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.08</div>
+              <div class="control-body">
+                <div class="control-name">No direct read access to production secrets</div>
+                <div class="control-text">No human workflow grants direct read access to production secret values. Any retrieval goes through an audited break-glass process.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Deterministic builds with strict dependency sets</div>
+                <div class="control-text">Builds are reproducible and use locked, strict dependency sets.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Dependency changelogs reviewed before updates</div>
+                <div class="control-text">Changelogs reviewed and approved before any dependency update goes to production.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Testing and validation in staging before production</div>
+                <div class="control-text">All changes validated in staging environment before production deployment.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Tool approval process</div>
+                <div class="control-text">Approval required for IDEs, extensions, and AI assistants before adoption.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.13</div>
+              <div class="control-body">
+                <div class="control-name">Secure configuration baselines documented</div>
+                <div class="control-text">Baselines documented for cloud infra, servers, and CI/CD — reviewed for drift.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.14</div>
+              <div class="control-body">
+                <div class="control-name">Cloud security hardening</div>
+                <div class="control-text">IAM least privilege, logging enabled (CloudTrail/equivalent), no public-facing storage buckets.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SD-2.15</div>
+              <div class="control-body">
+                <div class="control-name">Disaster recovery procedures documented</div>
+                <div class="control-text">Basic disaster recovery procedures with defined RTO/RPO for critical systems.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1113,6 +1692,87 @@
                 <div class="control-text">Basic deployment procedures documented covering who deploys, how, and what checks are performed.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Governed deployments</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Multiple independent audits</div>
+                <div class="control-text">At least 2 independent external audits for core contracts, at least 3 for contracts managing &gt;$100M.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Timelock on privileged operations</div>
+                <div class="control-text">Timelock on all privileged operations except designated emergency functions (pause, freeze, circuit breakers). Emergency functions require multisig authorization and post-execution review.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Pause mechanism implemented and tested</div>
+                <div class="control-text">Pause mechanism implemented and tested for all critical contracts.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Upgrade governance documented</div>
+                <div class="control-text">Who can upgrade, approval process, and timelock duration documented.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Deployment pipeline: testnet → staging → mainnet</div>
+                <div class="control-text">Simulation required at each step before advancing.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Re-audit on major upgrades</div>
+                <div class="control-text">Re-audit triggered on major upgrades or new core contract deployments.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Fast-track procedure for critical security patches</div>
+                <div class="control-text">Defined fast-track deployment procedure with maximum deployment SLA for critical security patches.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Bug bounty program active</div>
+                <div class="control-text">Rewards tiered by severity with a published reward table and minimums per severity level.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Remediation tracking</div>
+                <div class="control-text">All audit findings tracked to resolution.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Designated emergency on-chain authority</div>
+                <div class="control-text">Designated person or council authorized to execute emergency on-chain actions (pause, freeze).</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SC-2.11</div>
+              <div class="control-body">
+                <div class="control-name">On-chain token governance controls</div>
+                <div class="control-text">For protocols with on-chain token governance: minimum proposal review period defined, quorum thresholds documented, monitoring for abnormal voting patterns.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1159,6 +1819,108 @@
               <div class="control-body">
                 <div class="control-name">Audit logs for key systems</div>
                 <div class="control-text">At minimum: auth events, transactions, and deployments.</div>
+              </div>
+            </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Formal response capability</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Incident response team with defined roles</div>
+                <div class="control-text">Commander, technical, comms, and legal roles defined.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Response playbooks for key scenarios</div>
+                <div class="control-text">Playbooks for: exploit, key compromise, infra failure, DNS hijack, and supply chain incidents.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Incident classification taxonomy</div>
+                <div class="control-text">Defined severity levels for classifying incidents.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Escalation paths by severity level</div>
+                <div class="control-text">Clear escalation paths defined per severity classification.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Signer reachability integrated with IR</div>
+                <div class="control-text">Incident response can execute emergency on-chain actions within the required SLA.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.06</div>
+              <div class="control-body">
+                <div class="control-name">24/7 monitoring with alerting and paging</div>
+                <div class="control-text">Redundant paging systems, auto-escalation on non-acknowledgment, and management notification for high-severity incidents.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Tamper-evident logging with 1+ year retention</div>
+                <div class="control-text">Logs protected against tampering with defined retention of at least one year.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Security event on monitoring changes</div>
+                <div class="control-text">Security event triggered when monitoring is silenced, disabled, or reconfigured, and when logs are modified, truncated, or removed.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.09</div>
+              <div class="control-body">
+                <div class="control-name">IR channels on two independent platforms</div>
+                <div class="control-text">Working fallback if primary is compromised. Keys, victim PII, and unpublished vuln details stay on end-to-end encrypted paths only.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Post-incident reviews conducted and documented</div>
+                <div class="control-text">Reviews conducted after every incident with documented findings.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Stakeholder status update procedures</div>
+                <div class="control-text">Defined procedures for communicating status to stakeholders during active incidents.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Evidence collection procedures</div>
+                <div class="control-text">How to preserve logs, on-chain data, screenshots, and comms for forensics and potential legal action.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.13</div>
+              <div class="control-body">
+                <div class="control-name">Annual incident response drills</div>
+                <div class="control-text">Annual drills conducted and results documented.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">IM-2.14</div>
+              <div class="control-body">
+                <div class="control-name">Cross-protocol coordination contacts</div>
+                <div class="control-text">Contacts established with ecosystem emergency response services, partner protocols, and infrastructure vendor support. Reviewed quarterly.</div>
               </div>
             </div>
           </div>
@@ -1223,6 +1985,129 @@
                 <div class="control-text">All treasury transactions recorded with basic categorization.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Custody architecture and controls</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Recorded custody arrangement per wallet</div>
+                <div class="control-text">Every treasury wallet or account has a recorded custody arrangement — who holds signing material, which party can initiate movement, and the technical mechanism used.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Treasury wallet classification by loss-impact</div>
+                <div class="control-text">At minimum four bands: negligible (&lt;0.5%), moderate (0.5–5%), substantial (5–20%), catastrophic (&gt;20%). Controls scaled per class.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Value caps per wallet, chain, and provider</div>
+                <div class="control-text">Caps on value held in any single wallet, chain, or custody provider. Breaches require an approved exception before the position is held.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Custody platform security configuration</div>
+                <div class="control-text">Where supported: separation of initiator/approver, per-day and per-transaction caps, re-auth on privileged ops, IP allowlisting, and destination-address allowlisting with waiting period. Configuration re-validated quarterly.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Transaction verification: simulation + multi-party confirmation</div>
+                <div class="control-text">Required for large transfers before execution.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Synchronous call for high-value transfers</div>
+                <div class="control-text">Transfers above high-value threshold require a call between requester and at least one approver. Call confirms identity and reads destination address aloud for verification.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Documented inbound receive-flow for large transfers</div>
+                <div class="control-text">Fresh destination address generated, round-trip test transfer performed, and sender identity re-verified on a separate channel. OTC trades have their own counterparty-onboarding flow.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Treasury signer competency requirements</div>
+                <div class="control-text">Anyone with treasury signing or approval authority must demonstrate competence in: on-chain verification, address validation, recognizing social engineering, and the specific custody platform workflow. Refreshed annually and within 30 days of material workflow changes.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Credential and secret management for treasury systems</div>
+                <div class="control-text">Not in code; rotated on schedule.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Quarterly access reviews for treasury systems</div>
+                <div class="control-text">Access to treasury systems reviewed at least quarterly.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Protocol deployment due diligence</div>
+                <div class="control-text">Audit status, TVL, and history reviewed before committing funds to any protocol.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Vendor security evaluation for custody providers</div>
+                <div class="control-text">SOC 2, incident history, and insurance evaluated for all custody providers.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.13</div>
+              <div class="control-body">
+                <div class="control-name">Reconciliation at defined frequency</div>
+                <div class="control-text">On-chain balances reconciled against internal records per account classification. Discrepancies trigger investigation.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.14</div>
+              <div class="control-body">
+                <div class="control-name">Treasury infrastructure change tracking</div>
+                <div class="control-text">Changes to wallets, access policies, platform integrations, and signer rosters go through a tracked change record. Each critical change has a pre-written rollback runbook.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.15</div>
+              <div class="control-body">
+                <div class="control-name">Treasury disbursement limits with timelock</div>
+                <div class="control-text">Timelock enforced for amounts exceeding defined thresholds.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.16</div>
+              <div class="control-body">
+                <div class="control-name">Monitoring for unusual treasury outflows</div>
+                <div class="control-text">Active monitoring with alerts on anomalous outflow patterns.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">TM-2.17</div>
+              <div class="control-body">
+                <div class="control-name">Extended treasury monitoring</div>
+                <div class="control-text">Includes: new device enrollments and auth anomalies on custody platforms, vendor/platform service availability, and monitoring system integrity.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1269,6 +2154,80 @@
               <div class="control-body">
                 <div class="control-name">At least one monitoring tool in use</div>
                 <div class="control-text">Active monitoring service or tool deployed for on-chain activity.</div>
+              </div>
+            </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Proactive detection</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Smart contract monitoring</div>
+                <div class="control-text">Monitor for unexpected interactions, parameter changes, and failed transactions.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Credential-leak surveillance</div>
+                <div class="control-text">Covering breach corpora, paste sites, public code repositories, and dark-web marketplaces.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Organizational account monitoring</div>
+                <div class="control-text">Monitor social media accounts and domains for unauthorized access.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Alert priority tiers with named responders</div>
+                <div class="control-text">Every alert assigned a priority tier; each tier defines a named responder and escalation trigger if not acknowledged within the tier's SLA.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.05</div>
+              <div class="control-body">
+                <div class="control-name">On-call schedule with coverage</div>
+                <div class="control-text">On-call schedule maintained with coverage for operational needs.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Alert triage procedures</div>
+                <div class="control-text">Defined procedures to distinguish real incidents from false positives.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Monitoring coverage documented</div>
+                <div class="control-text">Covered systems and signals, known detection gaps, and deferred coverage with justification documented.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Monitoring integrated with incident response</div>
+                <div class="control-text">Monitoring alerts feed directly into the incident response workflow.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Protocol health signal monitoring</div>
+                <div class="control-text">For protocols with lending, staking, or liquidity pools: continuous monitoring of TVL, collateralization ratios, liquidation-trigger distances, and yield-source anomalies.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">CM-2.10</div>
+              <div class="control-body">
+                <div class="control-name">DeFi-specific attack pattern monitoring</div>
+                <div class="control-text">Monitoring for flash-loan-enabled exploits, governance manipulation, sudden liquidation cascades, and anomalous protocol interactions.</div>
               </div>
             </div>
           </div>
@@ -1326,6 +2285,108 @@
                 <div class="control-text">For any protocol using bridges: validator set size, upgrade authority, incident history, and maximum exposure limits documented. Conditional — only if using bridges.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Verified and managed supply chain</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Vendor risk assessment for critical providers</div>
+                <div class="control-text">Assessment required for all critical infrastructure providers: RPC, oracle, custody, and hosting.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Oracle architecture documented</div>
+                <div class="control-text">Including redundancy approach for price-critical operations. Oracle design covered in audit scope.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Oracle configuration documented</div>
+                <div class="control-text">Update frequency, deviation thresholds, and stale price handling documented. Covered in audit scope.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Oracle failure scenarios for liquidation protocols</div>
+                <div class="control-text">Failure scenarios and circuit breaker requirements documented and covered in audit scope. Conditional: only if protocol has liquidation mechanics.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.05</div>
+              <div class="control-body">
+                <div class="control-name">RPC provider redundancy</div>
+                <div class="control-text">At least 2 independent RPC providers for production.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Dependency changelogs reviewed before every production update</div>
+                <div class="control-text">Changelogs reviewed and approved before every dependency update to production.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Typosquatting checks before new packages</div>
+                <div class="control-text">Checks performed before installing any new package.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.08</div>
+              <div class="control-body">
+                <div class="control-name">SBOM maintained for production systems</div>
+                <div class="control-text">Software Bill of Materials maintained and kept current.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Human supply chain identity verification</div>
+                <div class="control-text">Identity verification required for anyone with access to keys, funds, infrastructure, or production systems. Code-only contributors may work pseudonymously if all contributions go through documented review.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Third-party code evaluated for data exfiltration risk</div>
+                <div class="control-text">Analytics, widgets, and SDKs evaluated before inclusion.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Bridge exposure limits and emergency exit plans</div>
+                <div class="control-text">Exposure limits defined, monitoring for bridge anomalies, and emergency position exit plans. Conditional: only if using bridges.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Wallet connector and frontend SDK versions pinned</div>
+                <div class="control-text">Versions pinned and reviewed before update. Conditional: only if deploying frontends.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.13</div>
+              <div class="control-body">
+                <div class="control-name">Supplier security incidents trigger re-evaluation</div>
+                <div class="control-text">Any supplier security incident triggers re-evaluation of the relationship and controls.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">SY-2.14</div>
+              <div class="control-body">
+                <div class="control-name">Frontend build integrity</div>
+                <div class="control-text">Hash of CI build output matches hash of deployed artifact on CDN. Runtime monitoring covered separately in FD domain.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1381,6 +2442,122 @@
                 <div class="control-text">Every certificate enrolled in an expiration-tracking system that alerts at least 30 days before expiry, with a named owner per certificate.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Hardened and monitored</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.01</div>
+              <div class="control-body">
+                <div class="control-name">DNSSEC enabled on all primary domains</div>
+                <div class="control-text">DNSSEC enabled and maintained on all primary organizational domains.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.02</div>
+              <div class="control-body">
+                <div class="control-name">CAA records restricting certificate issuance</div>
+                <div class="control-text">CAA record published on every domain restricting TLS issuance to specific CAs in use, with an iodef reporting address for abuse notifications.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Hardware security key on registrar accounts</div>
+                <div class="control-text">Critical domain registrar accounts protected by FIDO2/WebAuthn hardware key and enterprise-tier registrar with multiple named accounts, audit logs, and role separation.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Registry lock on critical domains</div>
+                <div class="control-text">Server-side registry lock (EPP clientTransferProhibited, clientUpdateProhibited, clientDeleteProhibited) applied, with a documented out-of-band unlock procedure.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Transfer locks on all domains</div>
+                <div class="control-text">Transfer locks enabled on all organizational domains.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Security-event reporting mailbox on separate DNS zone</div>
+                <div class="control-text">Domain security reporting directed to a mailbox on a different DNS zone than the domains being protected.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Change-control process for DNS and registrar changes</div>
+                <div class="control-text">Domain transfers, deletions, nameserver changes, and production record changes require second-reviewer approval, team notification, auditable log entry, and registrar-side confirmation via a second channel.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.08</div>
+              <div class="control-body">
+                <div class="control-name">Documented TTL strategy per DNS zone</div>
+                <div class="control-text">Baseline TTL values per record type, rationale, and emergency-lowering procedure documented.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.09</div>
+              <div class="control-body">
+                <div class="control-name">Continuous DNS zone monitoring</div>
+                <div class="control-text">Monitors for: delegation and authority changes, resource-record changes, CAA record changes, and email-authentication changes. Alerts routed with timestamp and diff against known-good zone file.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.10</div>
+              <div class="control-body">
+                <div class="control-name">Certificate Transparency log monitoring</div>
+                <div class="control-text">CT logs continuously watched for every organizational domain. New certificates generate alerts; wildcard certificates flagged specifically.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.11</div>
+              <div class="control-body">
+                <div class="control-name">Content Security Policy headers on all frontends</div>
+                <div class="control-text">CSP headers deployed and maintained on all frontend properties.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.12</div>
+              <div class="control-body">
+                <div class="control-name">Subresource Integrity for externally loaded scripts</div>
+                <div class="control-text">SRI required for all externally loaded scripts on pages where users sign transactions or access custody. Auto-updating third-party scripts must not load on signing/custody pages.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.13</div>
+              <div class="control-body">
+                <div class="control-name">MTA-STS policy published</div>
+                <div class="control-text">MTA-STS policy published for all organizational sending domains.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.14</div>
+              <div class="control-body">
+                <div class="control-name">Domain classification by risk level</div>
+                <div class="control-text">Domains classified by risk level with proportional controls applied per class.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.15</div>
+              <div class="control-body">
+                <div class="control-name">Automated TLS certificate renewal</div>
+                <div class="control-text">ACME or equivalent. Manual renewal only where not supported — exception documented.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">FD-2.16</div>
+              <div class="control-body">
+                <div class="control-name">User-warning procedure for frontend/DNS compromise</div>
+                <div class="control-text">Team can publish a warning within minutes through at least two channels independent of the compromised domain. Publishing credentials accessible during incidents from systems independent of the frontend.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1423,6 +2600,59 @@
                 <div class="control-text">Servers, HSMs, and signing devices procured directly from the manufacturer or an explicitly authorized reseller. Procurement provenance recorded.</div>
               </div>
             </div>
+            <div class="tier-divider" data-tier="2">
+              <span class="tier-divider-label">DARC2</span>
+              <span class="tier-divider-desc">+ Controlled physical access</span>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">PS-2.01</div>
+              <div class="control-body">
+                <div class="control-name">Physical security perimeters defined</div>
+                <div class="control-text">Perimeters defined for areas where signing, key storage, or sensitive operations occur.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">PS-2.02</div>
+              <div class="control-body">
+                <div class="control-name">Access control for secure areas</div>
+                <div class="control-text">Badge, key, biometric, or combination. Access logged.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">PS-2.03</div>
+              <div class="control-body">
+                <div class="control-name">Physical security monitoring</div>
+                <div class="control-text">Cameras or equivalent monitoring for all secure areas.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">PS-2.04</div>
+              <div class="control-body">
+                <div class="control-name">Equipment siting and protection</div>
+                <div class="control-text">Servers, HSMs, and signing stations positioned to prevent unauthorized access and environmental damage.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">PS-2.05</div>
+              <div class="control-body">
+                <div class="control-name">Environmental protections for key infrastructure</div>
+                <div class="control-text">Fire suppression, flood protection, and climate control for facilities housing key material or infrastructure.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">PS-2.06</div>
+              <div class="control-body">
+                <div class="control-name">Secure areas for key ceremonies</div>
+                <div class="control-text">Designated secure areas with documented access procedures for key ceremonies.</div>
+              </div>
+            </div>
+            <div class="control-item" data-tier="2">
+              <div class="control-id t2">PS-2.07</div>
+              <div class="control-body">
+                <div class="control-name">Working-in-secure-areas procedures</div>
+                <div class="control-text">No unauthorized devices, no photography, and escorted visitors required in secure areas.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1443,12 +2673,37 @@
   </footer>
 
   <script>
+    // Accordion
     document.querySelectorAll('.accordion-trigger').forEach(trigger => {
       trigger.addEventListener('click', () => {
-        const item = trigger.closest('.accordion-item');
-        item.classList.toggle('open');
+        trigger.closest('.accordion-item').classList.toggle('open');
       });
     });
+
+    // Tier toggle
+    const tier2Els = document.querySelectorAll('[data-tier="2"]');
+    const countEl = document.getElementById('control-count');
+    const labelEl = document.getElementById('control-label');
+
+    document.querySelectorAll('.tier-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tier = btn.dataset.tier;
+        if (tier === '1') {
+          tier2Els.forEach(el => el.style.display = 'none');
+          countEl.textContent = '88';
+          labelEl.textContent = 'Foundation Controls';
+        } else {
+          tier2Els.forEach(el => el.style.display = '');
+          countEl.textContent = '249';
+          labelEl.textContent = 'Operational Controls';
+        }
+      });
+    });
+
+    // Hide DARC2 by default
+    tier2Els.forEach(el => el.style.display = 'none');
   </script>
 </body>
 </html>
